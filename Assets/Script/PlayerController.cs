@@ -77,14 +77,11 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            print("teste1");
             // Verifica qual golpe foi solicitado
             for (int i = 0; i < attacks.Length; i++)
             {
-                print("teste2");
                 if (context.action.name == attacks[i].inputKey.ToString())
                 {
-                    print("teste3");
                     TryAttack(i);
                     break;
                 }
@@ -94,7 +91,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnSquat(InputAction.CallbackContext context)
     {
-        print("teste4");
         if (context.performed)
         {
             gameObject.transform.localScale = new Vector2(1f, 0.5f);
@@ -117,7 +113,10 @@ public class PlayerController : MonoBehaviour
             // Animação de ataque
 
             // Lógica de hit
-            
+
+            GetComponent<ComboSystem>().RegisterAttack(attack);  // Registra no combo
+
+            // Lógica de hit (opcional: remover se o combo só ativar no finisher)
             Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(
                 attackPoint.position,
                 attack.range,
